@@ -20,7 +20,8 @@ jokamu = Blueprint('jokamu', __name__)
 @jokamu.route('/index')
 def index():
     queryset = Product.query.order_by(Product.id.desc()).limit(3)
-    return render_template('index.html', queryset=queryset)
+    images = Product.query.all()
+    return render_template('index.html', queryset=queryset, images=images)
 
 
 @jokamu.route('/admin')
@@ -32,7 +33,7 @@ def admin_route():
 @jokamu.route('/home')
 def home():
     stock_data = Stock.query.order_by(Stock.id).all()
-    labels = [stock.name for stock in stock_data]  # Corrected line
+    labels = [stock.name for stock in stock_data] 
     values = [stock.quantity for stock in stock_data]
 
     # Sales and purchases
