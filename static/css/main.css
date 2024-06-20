@@ -1,0 +1,643 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Poppins|Penna|Gentona|Simplifica|Tangerine|Inconsolata|Open+Sans|Verdana:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&subset=devanagari,latin-ext');
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.2em;
+    font-size: 1.2rem;
+}
+
+nav {
+    /*border: 2px solid red;*/
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    /*width: 100%;*/
+    background-color: transparent; /* Initial background color */
+    transition: background-color 0.3s ease;
+}
+
+nav.locked {
+    background-color: #071629 !important; /* Background color when locked */
+}
+
+nav a {
+    color: black; /* Initial font color */
+    transition: color 0.3s ease;
+}
+
+nav.locked a {
+    color: white !important; /* Font color when locked */
+}
+
+.logo img {
+    height: 50px;
+    width: 250px;
+}
+
+.logo h1 a {
+    text-decoration: none;
+}
+
+nav ul {
+    /*border: 2px solid black;*/
+    display: flex;
+    gap: 20px;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-right: 20px;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+nav ul li a {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+    font-family: 'Poppins', "open sans";
+    font-weight: 400;
+    font-size: 22px;
+    transition: border-bottom 0.6s ease; /* Add a transition for the underline */
+}
+
+nav ul li a::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px; /* Set the height of the underline */
+    bottom: 0;
+    left: 0;
+    background-color: #007bff; /* Set the color of the underline */
+    transition: width 0.6s ease; /* Set the transition property */
+}
+
+nav ul li a:hover::before {
+    width: 100%; /* Expand the underline to 100% on hover */
+}
+
+nav ul li a:hover {
+    color: brown;
+}
+
+/* Hamburger icon styles */
+#menu-icon {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+#menu-icon div {
+    background-color: #333333;
+    height: 3px;
+    width: 25px;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.headline {
+    /*border: 2px solid red;*/
+    position: relative;
+    height: 600px;
+    color: #fff;
+    background: url("/static/images/headphones_hero_1.jpg");
+    background-size: cover; /* Cover the entire element, maintaining aspect ratio */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the background image */
+}
+
+.inner {
+    /*border: 2px solid green;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: normal;
+    font-weight: 700;
+    font-size: 20px;
+    padding-top: 330px;
+}
+
+/* Define keyframe animation */
+/*@keyframes fadeIn {*/
+/*    from {*/
+/*        opacity: 0;*/
+/*    }*/
+/*    to {*/
+/*        opacity: 1;*/
+/*    }*/
+/*}*/
+
+/*!* Apply animation to the heading *!*/
+/*.cyber-heading {*/
+/*    animation: fadeIn 1s ease-in-out;*/
+/*    text-align: center;*/
+/*    font-size: 3rem; !* Adjust the font size as needed *!*/
+/*    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); !* Add shadow effect *!*/
+/*    color: navajowhite;*/
+/*    margin-top: -100px;*/
+/*}*/
+
+/* Define keyframe animation */
+@keyframes changeColor {
+    0% {
+        color: var(--initial-color);
+    }
+    100% {
+        color: var(--hover-color);
+    }
+}
+
+/* Apply animation to the heading */
+.cyber-heading {
+    text-align: center;
+    font-size: 3rem; /* Adjust the font size as needed */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+}
+
+/* Define variables for initial and hover colors */
+.cyber-heading span {
+    --initial-color: white; /* Initial color */
+    --hover-color: black; /* Color on hover */
+}
+
+/* Apply animation to each letter on hover */
+.cyber-heading span:hover {
+    animation: changeColor 0.5s forwards;
+}
+
+.heading-2 {
+    margin-top: 250px;
+}
+
+/*About our cafe section*/
+.about-us {
+    /*border: 2px solid red;*/
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg);
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 7%;
+    background-color: floralwhite;
+    position: relative;
+}
+
+.about-us section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+
+.about-us section h1 {
+    font-size: 40px;
+    font-family: 'Poppins', "open sans";
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.head-line {
+    text-align: center;
+    margin-top: 15px;
+    font-style: italic;
+    font-size: 1.3rem;
+}
+
+.about-details {
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.about-details div {
+    width: 50%;
+}
+
+.about-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-details div:first-child h2 {
+    padding: 20px;
+}
+
+.content-text {
+    text-align: center;
+    text-justify: inter-word;
+}
+
+.about-images {
+    min-height: 300px; /* Set a minimum height for the container */
+    background: url("/static/images/typing.jpg") center center/cover;
+    /*border: 1px solid black;*/
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px 7px rgba(0, 0, 0, 0.2);
+}
+
+/*OUR SERVICES SECTION STYLING*/
+.our-services {
+    /*border: 2px solid red;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: center;
+    padding: 10px;
+
+}
+
+.our-services section {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 70px;
+}
+
+.service {
+    /*border: 1px solid black;*/
+    height: 300px;
+    width: 350px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+}
+.service article {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.service img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover; /* Cover the whole div with the image */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Put button at the bottom */
+    align-items: center; /* Center align button horizontally */
+    padding: 20px; /* Add padding to align button properly */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    color: white; /* Text color white */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease; /* Smooth transition for opacity change */
+}
+
+.service:hover .overlay {
+    opacity: 1; /* Show overlay on hover */
+}
+
+.service .btn {
+    background-color: yellow;
+    color: black;
+    padding: 10px 0; /* Adjust padding */
+    text-decoration: none;
+    margin-bottom: 20px;
+    width: 120%;
+    text-align: center;
+}
+
+.service .btn:hover {
+    background-color: orange; /* Change color on hover */
+}
+
+.service h3 {
+    margin: 10px 20px 0; /* Add margin to position heading */
+    font-weight: bold; /* Make text bold */
+    color: white; /* Text color white */
+    position: absolute;
+}
+
+
+/* our space section*/
+
+.our-space-section {
+    background-color: #DDECEE;
+    padding: 10px;
+    margin-top: 20px;
+    /*border: 2px solid green;*/
+}
+
+.our-space-heading {
+    font-family: Poppins sans-serif;
+    font-size: 30px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.our-images {
+    display: flex;
+    gap: 20px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.quotes {
+    align-items: center;
+    padding: 20px;
+    background-color: #3B666B;
+    color: white;
+    font-size: 23px;
+    line-height: 1.6rem;
+    font-family: 'ubuntu', sans-serif;
+    margin-top: 20px;
+    border-radius: 15px;
+    margin-left: 100px;
+}
+
+.quote-meta {
+    display: flex;
+    gap: 20px;
+}
+
+/*CONTACT US SECTION STYLING*/
+
+/* Contact us Section */
+.contact-us {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.form-style-8 {
+    font-family: 'Ubuntu', "open sans";
+    max-width: 335px;
+    padding: 30px;
+}
+
+.form-heading {
+    font-family: 'Poppins', "open sans";
+    color: #071629;
+    font-size: 32px;
+    font-weight: 100;
+    text-align: center;
+}
+
+.form-style-8 input[type="text"],
+.form-style-8 input[type="date"],
+.form-style-8 input[type="datetime"],
+.form-style-8 input[type="email"],
+.form-style-8 input[type="number"],
+.form-style-8 input[type="search"],
+.form-style-8 input[type="time"],
+.form-style-8 input[type="url"],
+.form-style-8 input[type="password"],
+.form-style-8 textarea,
+.form-style-8 select {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border-bottom: 2px solid #071629;
+    background: transparent;
+    margin-bottom: 10px;
+    font-family: 'Poppins', "open sans";
+    height: 45px;
+    max-width: 335px;
+    top: 28px;
+    opacity: 0.1745256632566452px;
+
+}
+
+.button {
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17.6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    align-items: center;
+    font-size: 12px;
+    margin: 6px 4px;
+    cursor: pointer;
+    background-color: #FF6565;
+    border-radius: 25px;
+    margin-top: 40px;
+    width: 162px;
+    height: 44px;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.form-style-8 textarea {
+    resize: none;
+    overflow: hidden;
+}
+
+/*FOOTER STYLING*/
+.footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #071629;
+    color: white;
+    height: 300px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: white;
+    text-transform: capitalize;
+}
+
+.location {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-title {
+    font-style: bold;
+}
+
+.footer p {
+    text-align: center;
+}
+
+#mainFooter {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.footer-list {
+    list-style: none;
+    margin-top: 2px;
+}
+
+.footer-list a {
+    text-decoration: none;
+    color: white;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 120px;
+    text-align: left;
+}
+
+.footer-nav {
+    display: flex;
+    color: white;
+    gap: 15px;
+}
+
+.rights {
+    margin-top: 70px;
+}
+
+/* Media query for screens with a width of 712 pixels or less */
+@media only screen and (max-width: 732px) {
+    /* Adjust styles for smaller screens */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        color: #333;
+    }
+
+    /*TOGGLE MENU ICON*/
+    #menu-icon {
+        /*border: 2px solid black;*/
+        display: flex;
+        color: black;
+    }
+
+    /* Add your existing styles */
+    /* Updated styles for the dropdown */
+    .dropdown {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow for a professional look */
+        border-radius: 0 0 8px 8px; /* Add rounded corners to the bottom */
+        z-index: 1000;
+        padding: 0; /* Remove default padding */
+    }
+
+    .dropdown li a {
+        color: white;
+        text-align: left; /* Align text to the left */
+        padding: 15px;
+        border-bottom: 1px solid #555; /* Add a border between list items */
+        transition: background-color 0.3s ease; /* Smooth transition for background color */
+    }
+
+    .dropdown li a:last-child {
+        border-bottom: none; /* Remove the border from the last list item */
+    }
+
+    .dropdown li a:hover {
+        color: #9C1A1C;
+        background-color: #444; /* Change background color on hover */
+    }
+
+    ul.show {
+        display: flex;
+    }
+
+    ul li {
+        margin: 0;
+        text-align: center;
+        padding: 10px;
+    }
+
+    #menu-icon.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    #menu-icon.active div:nth-child(2) {
+        opacity: 0;
+    }
+
+    #menu-icon.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-15px, -16px);
+    }
+
+
+    /*ABOUT US SECTION */
+    .about-us section {
+        padding: 0;
+    }
+
+    .about-details {
+        display: flex;
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: center;
+        justify-content: center; /* Center the content vertically and horizontally */
+        padding: 0;
+    }
+
+    .content-text {
+        text-align: justify-all;
+    }
+
+    .about-content h2 {
+        text-align: center;
+        width: 100%;
+    }
+
+    .about-content,
+    .about-images {
+        width: 100%;
+        flex-basis: 100%; /* Make both elements take up the full width of the container */
+        text-align: justify;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    .about-images {
+        margin-top: 10px;
+        min-height: 200px; /* Set a minimum height for the container */
+        background: url("/static/images/typing.jpg") center center/cover;
+        border-radius: 15px;
+        box-shadow: 5px 5px 10px 7px rgba(0, 0, 0, 0.2);
+    }
+}
