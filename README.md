@@ -107,16 +107,6 @@ The admin section is accessible only to authenticated admin users. It provides a
 1. Log in with admin credentials.
 2. Navigate to the admin dashboard using the URL `http://127.0.0.1:5000/admin`.
 
-## Contributing
-
-We welcome contributions to enhance the Curio Shop application. To contribute:
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature-name`.
-3. Commit your changes: `git commit -m 'Add some feature'`.
-4. Push to the branch: `git push origin feature-name`.
-5. Submit a pull request.
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

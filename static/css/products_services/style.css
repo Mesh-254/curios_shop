@@ -458,7 +458,7 @@ header .navbar .nav {
 .dropdown-toggle::after {
 	display: none;
 }
-header .logo {
+header .logo a{
 	float: left;
 	position: relative;
 	margin-top: 5px;
@@ -467,6 +467,10 @@ header .logo {
 	-ms-transition: 0.2s ease-in-out;
 	-o-transition: 0.2s ease-in-out;
 	transition: 0.2s ease-in-out;
+
+	font-family: 'Lucida', serif;
+	font-size: 30px;
+	color: #2f2f2f;
 }
 header .logo img {
 	z-index: 3;
