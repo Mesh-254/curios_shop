@@ -1,0 +1,54 @@
+{% extends "admin_pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+
+<div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{ title }}</div>
+
+<br>
+
+<form method="post" action="">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.name.label(class="form-control-label") }}
+        {{ form.name(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.quantity.label(class="form-control-label") }}
+        {{ form.quantity(class="form-control", id="quantity-input") }}
+    </div>
+
+    <br>
+    <hr>
+    <div class="btn-group">
+        <button type="submit" class="btn btn-success btn-sm" style="margin-right: 10px; width: 100px">Save</button>
+
+        <button type="reset" class="btn btn-info btn-sm" style="margin-right: 10px;  width: 100px">Reset</button>
+
+        <a href="{{ url_for('jokamu.get_stock') }}" class="btn btn-danger btn-sm"
+           style="margin-right: 10px;  width: 100px"">Cancel</a>
+    </div>
+
+
+</form>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the quantity input field
+        var quantityInput = document.getElementById("quantity-input");
+
+        // Add event listener for input event
+        quantityInput.addEventListener("input", function(event) {
+            // Parse the input value to an integer
+            var quantity = parseInt(event.target.value);
+
+            // Check if the input value is less than 1
+            if (quantity < 1) {
+                // If so, set the input value to 1
+                event.target.value = 1;
+            }
+        });
+    });
+</script>
+{% endblock content %}

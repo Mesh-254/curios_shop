@@ -1,0 +1,31 @@
+{% extends "admin_pages/base.html" %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+
+<div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{ title }}</div>
+
+<br>
+
+<form method="post" action="">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.name.label(class="form-control-label") }}
+        {{ form.name(class="form-control") }}
+    </div>
+    <br>
+    <hr>
+<div class="btn-group" >
+    <button type="submit" class="btn btn-success btn-sm" style="margin-right: 10px; width: 100px">Save</button>
+
+    <button type="reset"  class="btn btn-info btn-sm" style="margin-right: 10px;  width: 100px">Reset</button>
+
+    <a href="{{ url_for('jokamu.category_list')}}" class="btn btn-danger btn-sm" style="margin-right: 10px;  width: 100px"">Cancel</a>
+</div>
+
+
+</form>
+
+{% endblock content %}

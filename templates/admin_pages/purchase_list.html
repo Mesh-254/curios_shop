@@ -1,0 +1,127 @@
+{% extends "admin_pages/base.html" %}
+
+{% block title %} Purchases List {% endblock title %}
+
+
+{% block content %}
+
+<div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
+    <div class="col-md-8">Purchases List</div>
+    <div class="col-md-4">
+        <div class="float-md-right">
+            <a class="btn btn-success" href="{{url_for('jokamu.select_supplier')}}">New Incoming Stock</a>
+            <input type="text" class="form-control" placeholder="Search..." name="q"
+                   hx-get="/search_purchase" hx-trigger="keyup changed delay:100ms" hx-target="#results">
+        </div>
+    </div>
+</div>
+
+<br>
+
+<table class="table table-css table-hover table-bordered" id="results">
+
+    <thead class="thead-dark align-middle">
+    <tr  style="background-color: #343a40; font-size: 1.4rem; color: white; text-transform: capitalize; height: 50px">
+        <th width="15%">S/No</th>
+        <th width="15%">Supplier</th>
+        <th width="15%">Stocks Purchased</th>
+        <th width="10%">Quantity Purchased</th>
+        <th width="15%">Total Purchased Price</th>
+        <th width="10%">Purchased Date</th>
+        <th width="25%">Actions</th>
+    </tr>
+    </thead>
+
+    {% if bills %}
+
+    <tbody>
+    {% for purchase in bills %}
+    <tr>
+        <!-- Sale Number -->
+        <td class="align-middle">{{ loop.index }}</td>
+        <td class="">
+            {% if purchase.supplier.is_deleted %}
+            {{ purchase.supplier.name }}<br>
+            {% else %}
+            <a href="{{url_for('jokamu.supplier_details', id = purchase.supplier.id)}}">{{ purchase.supplier.name }}</a>
+            <br>
+            {% endif %}
+            <small style="color: #909494">Ph No : {{ purchase.supplier.phone }}</small>
+        </td>
+
+
+        <!-- Stocks Purchased -->
+        <td class="align-middle">{{ purchase.stock.name }}</td>
+
+        <!-- Quantity Purchased -->
+        <td class="align-middle">{{ purchase.quantity }}</td>
+
+        <!-- Total Purchased Price -->
+        <td class="align-middle">Ksh. {{ purchase.totalprice }}</td>
+
+        <!-- Purchased Date -->
+        <td class="align-middle">{{ purchase.date }}</td>
+
+        <!-- Actions -->
+        <td class="align-middle">
+            <a href="{{url_for('jokamu.view_purchase_bill', id=purchase.id)}}" class="btn btn-info btn-sm">View
+                Bill</a>
+            <a href="{{url_for('jokamu.delete_purchase_bill', id = purchase.id)}}" class="btn btn-danger btn-sm">Delete
+                Bill</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+{% else %}
+
+<tbody></tbody>
+</table>
+
+<br><br><br><br><br><br><br><br>
+<div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please try
+    adding some.
+</div>
+
+{% endif %}
+<!-- PAGINATION code -->
+<nav aria-label="..." style="text-align: center">
+    <ul class="pagination">
+        <li class="page-item {% if prev_url is none %}disabled{% endif %}">
+            <a class="page-link {% if prev_url is none %}disabled{% endif %}" {% if prev_url is not none
+               %}href="{{ prev_url }}" {% endif %} tabindex="-1">Previous</a>
+        </li>
+        {% for num in range(1, num_pages + 1) %}
+        <li class="page-item {% if num == current_page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('jokamu.view_purchases', page=num) }}" tabindex="3">{{ num }}
+                {% if num == current_page %}
+                <span class="sr-only">(current)</span>
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+        <li class="page-item {% if next_url is none %}disabled{% endif %}">
+            <a class="page-link {% if next_url is none %}disabled{% endif %}" {% if next_url is not none
+               %}href="{{ next_url }}" {% endif %}>Next</a>
+        </li>
+
+    </ul>
+</nav>
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all auto-incrementing input fields
+        const autoIncrementInputs = document.querySelectorAll('.auto-increment');
+
+        // Loop through each input field and set the value to its index
+        autoIncrementInputs.forEach(function (input, index) {
+            input.value = index + 1;
+        });
+
+    });
+
+</script>
+{% endblock content %}

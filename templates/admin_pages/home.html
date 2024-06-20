@@ -1,0 +1,126 @@
+{% extends "admin_pages/base.html" %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+<br>
+<div style="color:#464646; font-style: bold; font-size: 3rem; text-align: center">Current Stock </div>
+<div id="container" style="position: relative; width: 100%; height: 70vh; border: 2px solid #4e6570; border-radius: 10px; overflow: hidden;">
+    <canvas id="myChart" style="width: 100%; height: 100%;"></canvas>
+</div>
+
+
+<br>
+
+<div class="row">
+    <div class="col-md-6">
+        <a href="{{ url_for('jokamu.select_supplier')}}" class="btn btn-success btn-lg btn-block btn-huge">New Incoming Stock</a>
+    </div>
+    <span> </span>
+    <div class="col-md-6">
+        <a href="{{ url_for('jokamu.new_sale') }}" class="btn btn-primary btn-lg btn-block btn-huge">New Outgoing Stock</a>
+    </div>
+</div>
+
+<br>
+
+<div class="content-section">
+    <div class="row">
+        <div class="col-md-6">
+            <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Recent Sales</div>
+            <br>
+            {% if sales %}
+            {% for sale in sales %}
+            <br>
+            <div style="border-bottom: 0.5px solid #4e6570"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-9">
+                    Bill No: #{{ sale.id }} <br>
+                    Purchased by <b></b> <br>
+                    <small><i></i></small>
+                </div>
+                <div class="col-md-2"><br> <br> <a href="#"> viewbill </a></div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Recent Purchases</div>
+            <br>
+            <br>
+            <div style="border-bottom: 0.5px solid #4e6570"></div>
+            <br>
+            {% if purchases %}
+            {% for  purchase in purchases %}
+            <div class="row">
+                <div class="col-md-9">
+                    Bill No: # {{purchase.id}}<br>
+                    Purchased by <b></b> <br>
+                    <small><i></i></small>
+                </div>
+                <div class="col-md-2"><br> <br> <a href="{{url_for('jokamu.view_purchase_bill', id=purchase.id)}}">View Bill</a></div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<!-- Loading Chart JS --><!-- Loading Chart JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart').getContext("2d");
+
+    // Define an array of colors for each data point
+        const colors = [
+    'rgba(255, 99, 132)',   // Red
+    'rgba(54, 162, 235)',   // Blue
+    'rgba(255, 206, 86)',   // Yellow
+    'rgba(75, 192, 192)',   // Green
+    'rgba(153, 102, 255)',  // Purple
+    'rgba(255, 159, 64)',   // Orange
+    'rgba(0, 0, 128)',      // Navy
+    'rgba(255, 0, 255)',    // Magenta
+    'rgba(0, 128, 128)',    // Teal
+    'rgba(128, 0, 0)'       // Maroon
+];
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels | tojson | safe }},
+            datasets: [{
+                label: '# Stock Quantity',
+                data: {{ values | tojson | safe }},
+                backgroundColor: colors,  // Use the array of colors
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            // Adjust bar width
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 10,
+                    top: 0,
+                    bottom: 0
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+</script>
+
+
+{% endblock content %}

@@ -1,0 +1,76 @@
+{% extends "admin_pages/base.html" %}
+
+{% block title %} Charts {% endblock title %}
+
+{% block content %}
+<br>
+<div style="color:#464646; font-style: bold; font-size: 3rem; text-align: center">Sales Per Day</div>
+<div id="container"
+     style="position: relative; width: 100%; height: 70vh; border: 2px solid #4e6570; border-radius: 10px; overflow: hidden;">
+    <canvas id="salesChart" style="width: 100%; height: 100%;"></canvas>
+</div>
+
+
+<div style="color:#464646; font-style: bold; font-size: 3rem; text-align: center">Purchase Per Day</div>
+<div id="container2"
+     style="position: relative; width: 100%; height: 70vh; border: 2px solid #4e6570; border-radius: 10px; overflow: hidden;">
+    <canvas id="purchaseChart" style="width: 100%; height: 100%;"></canvas>
+</div>
+
+
+<br>
+
+<div class="row">
+    <div class="col-md-6">
+        <a href="{{ url_for('jokamu.sales_list') }}" class="btn btn-success btn-lg btn-block btn-huge">Sales List</a>
+    </div>
+    <span> </span>
+    <div class="col-md-6">
+        <a href="{{ url_for('jokamu.view_purchases') }}" class="btn btn-primary btn-lg btn-block btn-huge">Purchase List</a>
+    </div>
+</div>
+
+<br>
+
+<!-- Loading Chart JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('salesChart').getContext("2d");
+    const purchase = document.getElementById('purchaseChart').getContext("2d");
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ labels | tojson | safe }},
+            datasets: [{
+                label: '# Sales Per Day',
+                data: {{ sales_values | tojson | safe }},
+                fill: true,
+                lineTension: 0.5,
+                borderColor: 'rgb(75, 192, 192)',
+            }]
+        },
+        options: {
+            responsive: false,
+        }
+    });
+
+    new Chart(purchase, {
+        type: 'line',
+        data: {
+            labels: {{ labels | tojson | safe }},
+            datasets: [{
+                label: '# Purchases Per Day',
+                data: {{ purchases_values | tojson | safe }},
+                fill: true,
+                lineTension: 0.5,
+                borderColor: 'rgb(78, 192, 192)',
+            }]
+        },
+        options: {
+            responsive: false,
+        }
+    });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,21 @@
+<thead class="thead-dark align-middle">
+<tr>
+    <th width="10%">S/No.</th>
+    <th width="15%">Stocks Sold</th>
+    <th width="10%">Quantity Sold</th>
+    <th width="10%">Total Sold Price</th>
+    <th width="15%">Date</th>
+</tr>
+</thead>
+<tbody>
+
+{% for sale in queryset %}
+<tr>
+    <td class="align-middle"><p>{{ loop.index }}</p></td>
+    <td class="align-middle">{{ sale.stock.name }}</td>
+    <td class="align-middle"> {{ sale.quantity }}</td>
+    <td class="align-middle">Ksh.{{ sale.totalprice }}</td>
+    <td class="align-middle">{{ sale.date }}</td>
+</tr>
+{% endfor %}
+</tbody>

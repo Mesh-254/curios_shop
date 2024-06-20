@@ -1,0 +1,23 @@
+{% extends "admin_pages/base.html" %}
+
+
+{% block title %} Delete Supplier {% endblock title %}
+
+
+{% block content %}
+                
+    <form method="post">
+
+        <fieldset class="form-group">
+            <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">Delete Supplier</div> <br>
+            <h2 style="color:#575757;">Are you sure you want to delete the Supplier "{{ supplier.name }}"?</h2>
+        </fieldset>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Yes, Delete</button>
+            <a href="{{ url_for('jokamu.suppliers_list') }}" class="btn btn-danger">Cancel</a>
+        </div>
+        
+    </form>
+
+{% endblock content %}

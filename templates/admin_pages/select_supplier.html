@@ -1,0 +1,33 @@
+{% extends "admin_pages/base.html" %}
+
+{% block title %} New Purchase {% endblock title %}
+
+{% block content %}
+
+<div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">New Purchase</div>
+
+<br>
+
+<form method="post">
+    {{ form.hidden_tag() }}
+
+
+    {% for field in form if field.name != 'csrf_token' %} {# Exclude CSRF token field #}
+    <div class="form-group">
+        <label for="{{ field.id }}">{{ field.label }}</label>
+        {{ field(class="form-control", id=field.id) }} {# Render field with appropriate classes and id #}
+        {% for error in field.errors %}
+        <span class="text-danger">{{ error }}</span> {# Display field errors if any #}
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <br>
+    <div class="align-middle">
+        <button type="submit" class="btn btn-success">Next</button>
+        <a href="{{url_for('jokamu.view_purchases')}}" class="btn btn-danger">Cancel</a>
+    </div>
+
+</form>
+
+{% endblock content %}

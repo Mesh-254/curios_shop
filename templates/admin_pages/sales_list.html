@@ -1,0 +1,104 @@
+{% extends "admin_pages/base.html" %}
+
+
+{% block title %} Sales List {% endblock title %}
+
+
+{% block content %}
+
+<div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
+    <div class="col-md-8">Sales List</div>
+    <div class="col-md-4">
+        <div class="float-md-right">
+            <a class="btn btn-success" href="{{url_for('jokamu.new_sale')}}">New Outgoing
+                Stock</a>
+            <br><br>
+            <input type="text" class="form-control" placeholder="Search..." name="q" id="q"
+                   hx-get="/search_sale" hx-trigger="keyup changed delay:100ms" hx-target="#results">
+        </div>
+    </div>
+</div>
+
+<br>
+
+<table class="table table-css table-bordered table-hover" id="results">
+
+    <thead class="thead-dark align-middle">
+    <tr style="background-color: #343a40; font-size: 1.4rem; color: white; text-transform: capitalize; height: 50px">
+        <th width="10%">Bill No.</th>
+        <th width="15%">Stocks Sold</th>
+        <th width="10%">Quantity Sold</th>
+        <th width="10%">Total Sold Price</th>
+        <th width="15%">Date</th>
+        <th width="25%">Actions</th>
+    </tr>
+    </thead>
+
+    {% if sale_orders %}
+
+    <tbody>
+    {% for sale in sale_orders %}
+    <tr>
+        <td class="align-middle"><p>{{ loop.index }}</p></td>
+        <td class="align-middle">{{ sale.stock.name }}</td>
+        <td class="align-middle"> {{ sale.quantity }}</td>
+        <td class="align-middle">Ksh.{{ sale.totalprice }}</td>
+        <td class="align-middle">{{ sale.date }}</td>
+        <td class="align-middle"><a href="{{url_for('jokamu.view_sale_bill', id = sale.id)}}" class="btn btn-info btn-sm">View
+            Bill</a> <a href="{{url_for('jokamu.delete_sale', id = sale.id)}}" class="btn btn-danger btn-sm">Delete
+            Bill</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+
+<tbody></tbody>
+<br><br><br><br><br><br><br><br>
+<div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please
+    try
+    adding some.
+</div>
+
+{% endif %}
+<!-- PAGINATION code -->
+<nav aria-label="..." style="text-align: center">
+    <ul class="pagination">
+        <li class="page-item {% if prev_url is none %}disabled{% endif %}">
+            <a class="page-link {% if prev_url is none %}disabled{% endif %}" {% if prev_url is not none
+               %}href="{{ prev_url }}" {% endif %} tabindex="-1">Previous</a>
+        </li>
+        {% for num in range(1, num_pages + 1) %}
+        <li class="page-item {% if num == current_page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('jokamu.sales_list', page=num) }}" tabindex="3">{{ num }}
+                {% if num == current_page %}
+                <span class="sr-only">(current)</span>
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+        <li class="page-item {% if next_url is none %}disabled{% endif %}">
+            <a class="page-link {% if next_url is none %}disabled{% endif %}" {% if next_url is not none
+               %}href="{{ next_url }}" {% endif %}>Next</a>
+        </li>
+
+    </ul>
+</nav>
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all auto-incrementing input fields
+        const autoIncrementInputs = document.querySelectorAll('.auto-increment');
+
+        // Loop through each input field and set the value to its index
+        autoIncrementInputs.forEach(function (input, index) {
+            input.value = index + 1;
+        });
+
+    });
+
+</script>
+
+{% endblock content %}

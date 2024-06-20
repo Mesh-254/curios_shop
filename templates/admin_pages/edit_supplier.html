@@ -1,0 +1,57 @@
+{% extends "admin_pages/base.html" %}
+
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block content %}
+
+<div style="color:#575757; text-align: center; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">
+    {{title}}
+</div> <br>
+
+<form method="post">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        {{ form.name(class="form-control", id="name") }}
+        {% for error in form.name.errors %}
+        <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="phone">Phone No:</label>
+            {{ form.phone(class="form-control", id="phone") }}
+            {% for error in form.phone.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group col-md-6">
+            <label for="email">Email ID:</label>
+            {{ form.email(class="form-control", id="email") }}
+            {% for error in form.email.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="address">Address:</label>
+        {{ form.address(class="form-control", id="address") }}
+        {% for error in form.address.errors %}
+        <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="align-middle">
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="reset" class="btn btn-warning">Reset</button>
+        <a href="{{ url_for('jokamu.suppliers_list') }}" class="btn btn-danger">Cancel</a>
+    </div>
+</form>
+
+
+{% endblock content %}

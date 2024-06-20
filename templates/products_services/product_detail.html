@@ -1,0 +1,121 @@
+{% extends 'products_services/index.html'%}
+{% block title %} {{title}} {% endblock title %}
+{% block content %}
+
+<!-- Content -->
+<div id="content">
+
+    <!-- Popular Products -->
+    <section class=" padding-top-100 padding-bottom-100">
+        <div class="container">
+
+            <!-- SHOP DETAIL -->
+            <div class="shop-detail">
+
+                <div class="row">
+
+                    <!-- Popular Images Slider -->
+                    <div class="col-md-7">
+
+                        <!-- Images Slider -->
+                        <div class="images-slider">
+                            <ul class="slides">
+                                <li>
+                                    <img class="img-responsive"
+                                         src="{{url_for('static', filename='uploads/' + product.image)}}"
+                                         alt="">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- COntent -->
+                    <div class="col-md-5">
+                        <h4 style="text-transform: capitalize">{{product.name}}</h4>
+                        <div class="rating-strs">
+                            <i class="fas fa-star"></i> <!-- Full star -->
+                            <i class="fas fa-star"></i> <!-- Full star -->
+                            <i class="fas fa-star"></i> <!-- Full star -->
+                            <i class="fas fa-star"></i> <!-- Full star -->
+                            <i class="fas fa-star-half-alt"></i> <!-- Half star -->
+                        </div>
+                        <span class="price"><small>Ksh. </small>{{product.price}}</span>
+                        <ul class="item-owner">
+                            <li>Brand:<span> Cyber Technologies</span></li>
+                            <li>Category:<span> <a href="#">{{product.category.name}}</a></span></li>
+                        </ul>
+
+                        <!-- Item Detail -->
+                        <p>{{product.description}}</p>
+
+                        <!-- Short By -->
+                        <div class="some-info">
+                            <!-- INFOMATION -->
+                            <div class="inner-info">
+                                <h5>Share this item with your friends</h5>
+                                <!-- Social Icons -->
+                                <ul class="social_icons">
+                                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-tumblr"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Products -->
+    <section class="dark-bg padding-top-100 padding-bottom-100">
+        <div class="container-full">
+
+            <!-- Main Heading -->
+            <div class="heading text-center">
+                <h4>Similar Products</h4>
+                <span>
+                    Explore Similar Products & Services: Diverse, Quality, Unmatched Value, Satisfaction Guaranteed
+                </span>
+            </div>
+
+            <!-- Popular Item Slide -->
+            <div class="papular-block block-slide">
+                <!-- Item -->
+                {% for product in similar_products%}
+                <div class="item">
+                    <!-- Item img -->
+                    <div class="item-img">
+                        <img class="img-1" src="{{url_for('static', filename='uploads/' + product.image)}}"
+                             alt="">
+                        <img class="img-2" src="{{url_for('static', filename='uploads/' + product.image)}}"
+                             alt="">
+                        <!-- Overlay -->
+                        <div class="overlay">
+                            <div class="position-bottom">
+                                <div class="inn">
+                                    <a href="{{url_for('static', filename='uploads/' + product.image)}}"
+                                       data-lighter=""><i class="bi bi-search"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Item Name -->
+                    <div class="item-name"><a href="{{url_for('jokamu.product_details', product_id = product.id)}}">{{product.name}} </a>
+                        <p>{{product.description}}</p>
+                    </div>
+                    <!-- Price -->
+                    <span class="price"><small>ksh. </small>{{product.price}}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+<thead class="thead-dark align-middle">
+<tr>
+    <th width="15%">S/No</th>
+    <th width="15%">Supplier</th>
+    <th width="15%">Stocks Purchased</th>
+    <th width="10%">Quantity Purchased</th>
+    <th width="15%">Total Purchased Price</th>
+    <th width="10%">Purchased Date</th>
+</tr>
+</thead>
+<tbody>
+{% for purchase in queryset%}
+
+<tr>
+    <!-- Sale Number -->
+    <td class="align-middle">{{ loop.index }}</td>
+    <td class="">
+        <a href="{{url_for('jokamu.supplier_details', id = purchase.supplier.id)}}">{{ purchase.supplier.name }}</a>
+        <br>
+        <small style="color: #909494">Ph No : {{ purchase.supplier.phone }}</small>
+    </td>
+
+    <!-- Stocks Purchased -->
+    <td class="align-middle">{{ purchase.stock.name }}</td>
+
+    <!-- Quantity Purchased -->
+    <td class="align-middle">{{ purchase.quantity }}</td>
+
+    <!-- Total Purchased Price -->
+    <td class="align-middle">Ksh. {{ purchase.totalprice }}</td>
+
+    <!-- Purchased Date -->
+    <td class="align-middle">{{ purchase.date }}</td>
+</tr>
+{% endfor %}
+</tbody>
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all auto-incrementing input fields
+        const autoIncrementInputs = document.querySelectorAll('.auto-increment');
+
+        // Loop through each input field and set the value to its index
+        autoIncrementInputs.forEach(function (input, index) {
+            input.value = index + 1;
+        });
+
+    });
+
+</script>

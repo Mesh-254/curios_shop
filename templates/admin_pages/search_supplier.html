@@ -1,0 +1,27 @@
+ <thead class="thead-dark align-middle">
+    <tr>
+        <th width="20%">Name</th>
+        <th width="15%">Contact</th>
+        <th width="25%">Email</th>
+        <th width="30%" style="text-align: center">Address</th>
+    </tr>
+    </thead>
+
+<tbody>
+{% for supplier in  queryset %}
+<tr>
+    <td>
+        <p style="text-transform: capitalize; color:seagreen">{{ supplier.name }} </p>
+    </td>
+    <td class="align-middle">{{ supplier.phone }}</td>
+     <td>
+        <p style="text-transform: capitalize; color:black">{{ supplier.email }} </p>
+    </td>
+    <td class="align-middle">{{ supplier.address }}</td>
+</tr>
+{% endfor %}
+</tbody>
+
+
+
+

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!--    Chart js CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!--    </> htmx cdn-->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+    <title>CyberTech - {% block title %}Jokamu{% endblock title %}</title>
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Logistics</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <p> Inventory Manager </p>
+            <li class="active">
+                <a href="{{ url_for('jokamu.home') }}"> <i class="fas fa-home"></i> Home</a>
+            </li>
+            <li>
+                <a href="#inventorySubmenu" data-toggle="collapse" aria-expanded="false">
+                    <i class="fas fa-boxes"></i> Inventory <i class="fas fa-chevron-down arrow-icon"></i></a>
+                <ul class="collapse list-unstyled" id="inventorySubmenu">
+                    <li><a href="{{ url_for('jokamu.add_stock') }}">Add new Stock</a></li>
+                    <li><a href="{{ url_for('jokamu.get_stock') }}">Inventory List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#supplierSubmenu" data-toggle="collapse" aria-expanded="false">
+                    <i class="fas fa-dolly-flatbed"></i> Suppliers <i class="fas fa-chevron-down arrow-icon"></i></a>
+                <ul class="collapse list-unstyled" id="supplierSubmenu">
+                    <li><a href="{{url_for('jokamu.create_supplier')}}">Add new Supplier</a></li>
+                    <li><a href="{{url_for('jokamu.suppliers_list')}}">Suppliers List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#purchaseSubmenu" data-toggle="collapse" aria-expanded="false">
+                    <i class="fas fa-cash-register"></i> Purchases<i class="fas fa-chevron-down arrow-icon"></i></a>
+                <ul class="collapse list-unstyled" id="purchaseSubmenu">
+                    <li><a href="{{url_for('jokamu.select_supplier')}}">New Incoming Stock</a></li>
+                    <li><a href="{{url_for('jokamu.view_purchases')}}">Purchases List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#saleSubmenu" data-toggle="collapse" aria-expanded="false" class="collapsible-link">
+                    <i class="fas fa-dollar-sign"></i> Sales <i class="fas fa-chevron-down arrow-icon"></i>
+                </a>
+                <ul class="collapse list-unstyled" id="saleSubmenu">
+                    <li><a href="{{url_for('jokamu.new_sale')}}">New Outgoing Stock</a></li>
+                    <li><a href="{{url_for('jokamu.sales_list')}}">Sales Orders</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#CategorySubmenu" data-toggle="collapse" aria-expanded="false" class="collapsible-link">
+                    <i class="fas fa-layer-group"></i> Product Category <i class="fas fa-chevron-down arrow-icon"></i>
+                </a>
+                <ul class="collapse list-unstyled" id="CategorySubmenu">
+                    <li><a href="{{url_for('jokamu.add_category')}}">Add Category</a></li>
+                    <li><a href="{{url_for('jokamu.category_list')}}">category List</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#ProductSubmenu" data-toggle="collapse" aria-expanded="false" class="collapsible-link">
+                    <i class="fas fa-layer-group"></i> Products <i class="fas fa-chevron-down arrow-icon"></i>
+                </a>
+                <ul class="collapse list-unstyled" id="ProductSubmenu">
+                    <li><a href="{{url_for('add_product')}}">Add Product</a></li>
+                      <li><a href="{{url_for('del_product')}}">Delete Product</a></li
+                </ul>
+            </li>
+
+        </ul>
+        <ul class="list-unstyled CTAs">
+            <li><a href="#" class="article">Back to Index</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+
+                <div class="navbar-header">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                        <i class="glyphicon glyphicon-align-left"></i>
+                        <span>Logistics</span>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{url_for('jokamu.view_products')}}">
+                            View Shop</a></li>
+                        <li><a href="{{url_for('jokamu.get_sales_and_purchases_per_day')}}">View Charts</a></li>
+                        <li><a href="{{url_for('user.logout')}}">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MESSAGE FLASHING CODE-->
+        <div style="text-align: center;">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div style="width: 1000px; height: 50px; margin: 0 auto;">
+                {% for category, message in messages %}
+                <div class="alert-{{ category }}"
+                     style="padding: 12px; border-radius: 3px; font-size: 1.6rem; margin-bottom: 16px;">
+                    {{ message }}
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+</div>
+
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap Js CDN -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+
+        const buttons = document.querySelectorAll('.close');
+        buttons.forEach(button => {
+            button.addEventListener('click', function () {
+                this.parentNode.style.display = 'none';
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

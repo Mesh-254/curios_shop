@@ -1,0 +1,90 @@
+{% extends "admin_pages/base.html" %}
+
+{% block title %} Inventory List {% endblock title %}
+
+{% block content %}
+
+<div class="row" style="color: #4e4e4e; font-style: bold; font-size: 3rem;">
+    <div class="col-md-8">Inventory List</div>
+    <div class="col-md-4">
+        <div class="float-md-right">
+            <a class="btn btn-success" href="{{ url_for('jokamu.add_stock')}}">Add New Stock</a>
+            <br> <br>
+            <input type="text" class="form-control" placeholder="Search..." name="query"
+                   hx-get="/search_stock" hx-trigger="keyup changed delay:100ms" hx-target="#results">
+        </div>
+    </div>
+</div>
+<div style="border-bottom: 1px solid white;"></div>
+<table class="table table-css table-bordered table-hover">
+
+    <br>
+
+    <thead class="thead-dark align-middle">
+    <tr style="background-color: #343a40; color: white; font-size: 1.5rem; text-transform: capitalize; height: 50px">
+        <th width="40%">Stock Name</th>
+        <th>Current Stock in Inventory</th>
+        <th style="text-align: center">Actions</th>
+    </tr>
+    </thead>
+
+    {% if queryset %}
+
+    <tbody id="results">
+    {% for stock in queryset %}
+    <tr>
+        <td>
+            <p style="text-transform: capitalize; color:black">{{ stock.name }} </p>
+        </td>
+        <td class="align-middle">{{ stock.quantity }}</td>
+        <td class="align-middle  text-center">
+            <div class="d-inline-block align-middle">
+                <a href="{{ url_for('jokamu.edit_stock', id = stock.id)}}" class="btn btn-info btn-sm">Edit Details</a>
+                <a href="{{ url_for('jokamu.delete_stock', id = stock.id)}}" class="btn btn-danger btn-sm"> Delete
+                    Stock </a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+{% else %}
+
+<tbody></tbody>
+</table>
+
+<br><br><br><br><br><br><br><br>
+<div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please try
+    adding some.
+</div>
+
+{% endif %}
+
+<!-- PAGINATION code -->
+<nav aria-label="..." style="text-align: center">
+    <ul class="pagination">
+        <li class="page-item {% if prev_url is none %}disabled{% endif %}">
+            <a class="page-link {% if prev_url is none %}disabled{% endif %}" {% if prev_url is not none
+               %}href="{{ prev_url }}" {% endif %} tabindex="-1">Previous</a>
+        </li>
+        {% for num in range(1, num_pages + 1) %}
+        <li class="page-item {% if num == current_page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('jokamu.get_stock', page=num) }}" tabindex="3">{{ num }}
+                {% if num == current_page %}
+                <span class="sr-only">(current)</span>
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+        <li class="page-item {% if next_url is none %}disabled{% endif %}">
+            <a class="page-link {% if next_url is none %}disabled{% endif %}" {% if next_url is not none
+               %}href="{{ next_url }}" {% endif %}>Next</a>
+        </li>
+
+    </ul>
+</nav>
+
+
+{% endblock content %}

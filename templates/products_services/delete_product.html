@@ -1,0 +1,217 @@
+{% extends 'products_services/index.html'%}
+{% block title %} Delete Products {% endblock title %}
+{% block content %}
+
+<!-- Content -->
+<div id="content" class="padding-top-0">
+
+    <!-- New Arrival -->
+    <section class="gray-bg padding-top-100 padding-bottom-100">
+        <div class="container">
+
+            <!-- Main Heading -->
+            <div class="heading text-center">
+                <h4>Delete Products</h4>
+            </div>
+
+            <!-- CATEGORIES LIST -->
+
+            <div class="cate-list">
+                <ul>
+                    <li class="active" style="font-size: 1.7rem"><a href="#."> OUR PRODUCTS & SERVICES </a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Item Filters -->
+        <div class="container-full">
+            <div class="item-fltr">
+                <!-- short-by -->
+                <div class="short-by"> Showing 1–10 of 20 results</div>
+                <!-- List and Grid Style -->
+                <div class="lst-grd"><a href="#" id="list">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                </a>
+                    <a href="#" id="grid">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-grid" viewBox="0 0 16 16">
+                            <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"/>
+                        </svg>
+
+                    </a>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div id="products" class="arrival-block list-group">
+                {% if queryset%}
+                <div class="row">
+                    <!-- Item -->
+                    {% for product in queryset%}
+                    <div class="item">
+                        <div class="img-ser">
+                            <!-- Images -->
+                            <div class="thumb">
+                                <img class="img-1" src="{{url_for('static', filename='uploads/' + product.image)}}"
+                                     alt="">
+                                <img class="img-2" src="{{url_for('static', filename='uploads/' + product.image)}}"
+                                     alt="">
+
+                            </div>
+
+                            <!-- Item Name -->
+                            <div class="item-name fr-grd"><a
+                                    href="{{url_for('jokamu.product_details', product_id = product.id)}}"
+                                    class="i-tittle">{{product.name}}</a>
+                                <span class="price"><small>Ksh.</small> {{product.price}}</span> 
+                                    <form action="{{ url_for('delete_product', id=product.id) }}" method="post">
+                                        <a  class="deta animated fadeInRight">
+                                            <input type="submit" value="Delete">
+                                        </a>
+                                    </form>
+                            </div>
+                            <!-- Item Details -->
+                            <div class="cap-text">
+                                <div class="item-name"><a href="#" class="i-tittle">{{product.name}}</a> <span
+                                        class="price"><small>Ksh.</small> {{product.price}}</span>
+                                    <!-- Stars -->
+                                    <span class="stras"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                            class="fa fa-star-half-o"></i> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="row">
+                    <p>There are no products to display!</p>
+                </div>
+                {% endif %}
+
+                <!-- PAGINATION CODE -->
+                <div style="font-size: 20px; text-align: center">
+                    {% if prev_url is not none %}
+                    <a href="{{ prev_url }}" tabindex="-1">Previous Page</a>
+                    {% else %}
+                    <span>Previous Page</span>
+                    {% endif %}
+
+                    <span style="margin: 0 10px;">......</span>
+
+                    {% for num in range(1, num_pages + 1) %}
+                    {% if num == current_page %}
+                    <span style="margin: 0 5px;">{{ num }}</span>
+                    {% else %}
+                    <a href="{{ url_for('jokamu.view_products', page=num) }}" style="margin: 0 5px;">{{ num }}</a>
+                    {% endif %}
+                    {% endfor %}
+
+                    <span style="margin: 0 10px;">......</span>
+
+
+                    {% if next_url is not none %}
+                    <a href="{{ next_url }}">Next Page</a>
+                    {% else %}
+                    <span>Next Page</span>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <!-- View All Items -->
+            <div class="text-center margin-top-30"><a href="{{url_for('jokamu.view_products')}}"
+                                                      class="btn margin-right-20">View ALl Shop Items</a>
+            </div>
+
+            <!-- Quick View -->
+            <div id="qck-view-shop" class="zoom-anim-dialog qck-inside mfp-hide">
+                {% for product in product %}
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <!-- Images Slider -->
+                        <div class="images-slider">
+                            <ul class="slides">
+
+                                <li><img class="img-1"
+                                         src="{{url_for('static', filename='uploads/' + product.image)}}"
+                                         alt="">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Content Info -->
+                    <div class="col-md-6">
+
+                        <div class="contnt-info">
+                            <h3>{{product.name}}</h3>
+                            <p>{{product.description}} </p>
+
+                            <!-- Btn  -->
+                            <div class="add-info">
+                                <div class="quantity">
+                                    <input type="number" min="1" max="100" step="1" value="1"
+                                           class="form-control qty">
+                                </div>
+                                <a href="#." class="btn btn-inverse"><i class="icon-heart"></i></a> <a href="#."
+                                                                                                       class="btn">ADD
+                                TO CART </a></div>
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="testimonial padding-top-100 padding-bottom-80">
+        <div class="container">
+
+            <!-- Main Heading -->
+            <div class="heading text-center margin-bottom-60">
+                <h4>Our Customers Feedback</h4>
+                <hr>
+            </div>
+
+            <!-- Slide -->
+            <div class="two-col">
+
+                <!-- Slide -->
+                <div class="testi-in"><i class="fa fa-quote-left"></i>
+                    <p>Cybertechnologies has revolutionized my printing experience with their seamless online services.
+                        The quality of prints is exceptional, and their quick turnaround time always impresses me.</p>
+                    <h5>John Stephen</h5>
+                    <span>Customer</span></div>
+
+                <!-- Slide -->
+                <div class="testi-in"><i class="fa fa-quote-left"></i>
+                    <p>I rely on Cybertechnologies for all my lamination needs, and they never disappoint! Their
+                        attention to detail ensures that every document is protected with precision, and their friendly
+                        staff make the entire process effortless.</p>
+                    <h5>David Kioko</h5>
+                    <span>Customer</span></div>
+
+                <!-- Slide -->
+                <div class="testi-in"><i class="fa fa-quote-left"></i>
+                    <p>I've been using Cybertechnologies for photocopying for years, and their consistency in delivering
+                        crisp, clear copies is unmatched. Their dedication to customer satisfaction truly sets them
+                        apart in the industry. </p>
+                    <h5>Smith Kivuva</h5>
+                    <span>Customer</span></div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,96 @@
+{% extends "admin_pages/base.html" %}
+
+{% block title %} Category List {% endblock title %}
+
+{% block content %}
+
+<div class="row" style="color: #4e4e4e; font-style: bold; font-size: 3rem; ">
+    <div class="col-md-8">Category List</div>
+    <div class="col-md-4">
+        <div class="float-md-right">
+            <a class="btn btn-success" href="{{ url_for('jokamu.add_category')}}">Add New
+                Product Category</a>
+        </div>
+    </div>
+</div>
+
+<div style="border-bottom: 1px solid white;"></div>
+
+<br>
+
+<table class="table table-css table-bordered table-hover">
+
+
+    <form method="get">
+        <div class="input-group search">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-pink"> Search</button>
+            </div>
+        </div>
+    </form>
+
+    <br>
+
+    <thead class="thead-dark align-middle">
+    <tr style="background-color: #343a40; font-size: 1.4rem; color: white; text-transform: capitalize; height: 50px">
+        <th width="40%">Stock Name</th>
+        <th style="text-align: center">Actions</th>
+    </tr>
+    </thead>
+
+    {% if queryset %}
+
+    <tbody>
+    {% for category in queryset %}
+    <tr>
+        <td>
+            <p style="text-transform: capitalize; color:black">{{ category.name }} </p>
+        </td>
+        <td class="align-middle  text-center">
+            <div class="d-inline-block align-middle">
+                <a href="{{url_for('jokamu.edit_category', id =  category.id)}}" class="btn btn-info btn-sm">Edit
+                    Details</a>
+                <a href="{{url_for('jokamu.delete_category', id =  category.id)}}" class="btn btn-danger btn-sm"> Delete
+                    Category </a>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    {% else %}
+    <tbody>
+    <br><br><br><br><br><br><br><br>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please
+        try
+        adding some.
+    </div>
+    </tbody>
+
+    {% endif %}
+</table>
+<!-- PAGINATION code -->
+<nav aria-label="..." style="text-align: center">
+    <ul class="pagination">
+        <li class="page-item {% if prev_url is none %}disabled{% endif %}">
+            <a class="page-link {% if prev_url is none %}disabled{% endif %}" {% if prev_url is not none
+               %}href="{{ prev_url }}" {% endif %} tabindex="-1">Previous</a>
+        </li>
+        {% for num in range(1, num_pages + 1) %}
+        <li class="page-item {% if num == current_page %}active{% endif %}">
+            <a class="page-link" href="{{ url_for('jokamu.category_list', page=num) }}" tabindex="3">{{ num }}
+                {% if num == current_page %}
+                <span class="sr-only">(current)</span>
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+        <li class="page-item {% if next_url is none %}disabled{% endif %}">
+            <a class="page-link {% if next_url is none %}disabled{% endif %}" {% if next_url is not none
+               %}href="{{ next_url }}" {% endif %}>Next</a>
+        </li>
+
+    </ul>
+</nav>
+
+
+{% endblock content %}

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Required meta tags --><!-- Log on to codeastro.com for more projects -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href='/static/bootstrap/bootstrap.min.css'>
+
+    <!-- font awesome cdn -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!-- Main CSS, then Sidebar CSS, Bill CSS-->
+    <script src="{{ url_for('static', filename='/css/main.css') }}"></script>
+    <script src="{{ url_for('static', filename='/css/sidebar.css') }}"></script>
+    <script src="{{ url_for('static', filename='css/bill.css') }}"></script>
+
+
+    <title>{% block title %}Purchase Bill{% endblock title %}</title>
+
+</head>
+
+<body class="bg">
+
+<main id="wrapper">
+    <div id="content" class="bg-white">
+        <div class="row">
+            <div class="col-md-12">
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}"> {{ message }}</div>
+                {% endfor %}
+                {% endif %}
+
+                <div class="container">
+                    <form method="post">
+                        <div class="bg">
+                            <br>
+
+                            <div id="printArea" class="bg">
+
+                                <table class="outer-box inner-box"
+                                       style="width: 840px; margin-left: auto; margin-right: auto;">
+                                    <tbody>
+
+                                    <tr style="height: 1px;">
+                                        <td><p style="text-align: center;">TAX INVOICE - PURCHASE</p></td>
+                                    </tr>
+
+                                    <tr style="text-align: center;">
+                                        <td>
+                                            <span style="font-size: 350%;">CYBERTECH</span> <br>
+                                            <span style="font-size: 120%; font-weight: bold;">DEALERS IN : Cyber Tech</span>
+                                            <br>
+                                            <span style="font-weight: bold;">REGD ADDRESS :</span> Kitui-Kibwezi ,
+                                            Mutomo<br>
+                                            <span style="font-weight: bold;">EMAIL : jokamu@outlook.com</span> <br><br>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <table class="outer-box"
+                                                   style="width: 800px; margin-left: auto; margin-right: auto;">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="inner-box" style="text-align: center; font-weight: bold;"
+                                                        colspan="3">GSTIN NO - 123456789CASTR0
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="inner-box" style="width: 50%; font-weight: bold;">&nbsp;NAME
+                                                        OF CONSIGNEE / BUYER
+                                                    </td>
+                                                    <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;INVOICE
+                                                        NO
+                                                    </td>
+                                                    <td class="inner-box" style="width: 25%;">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="inner-box" style="width: 50%;">&nbsp;</td>
+                                                    <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;DATE</td>
+                                                    <td class="inner-box" style="width: 25%;">&nbsp;</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <br>
+
+                                    <tr>
+                                        <td>
+                                            <table class="outer-box"
+                                                   style="width: 800px; margin-left: auto; margin-right: auto;">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="inner-box"
+                                                        style="width: 10%; font-weight: bold; text-align: left;">GOODS
+                                                    </td>
+                                                    <td class="inner-box"
+                                                        style="width: 12%; font-weight: bold; text-align: left;">QTY
+                                                        MTS
+                                                    </td>
+                                                    <td class="inner-box"
+                                                        style="width: 12%; font-weight: bold; text-align: left;">RATE
+                                                        PMT
+                                                    </td>
+                                                    <td class="inner-box"
+                                                        style="width: 12%; font-weight: bold; text-align: left;">
+                                                        AMOUNT <small>Ksh.</small>
+                                                    </td>
+                                                </tr>
+                                                <tr style="height: auto; margin-left: 300px">
+                                                    <td class="inner-box" style="text-transform: capitalize">&nbsp; {{ bill.stock.name
+                                                        }}
+                                                    </td>
+                                                    <td class="inner-box" style="width: 2%;">&nbsp; {{ bill.quantity
+                                                        }}
+                                                    </td>
+                                                    <td class="inner-box" style="width: 12%;">&nbsp; {{ bill.perprice
+                                                        }}
+                                                    </td>
+                                                    <td class="inner-box" style="width: 12%;">&nbsp;{{ bill.totalprice
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <table class="outer-box inner-box"
+                                                   style="width: 800px; margin-left: auto; margin-right: auto;">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="inner-box" style="width: 35%; text-align: center;"
+                                                        rowspan="6">
+                                                        <p><span style="font-weight: bold;">BANK DETAILS <br> CodeAstro</span>
+                                                            <br>
+                                                         PH NO - 541-010-0400</p>
+                                                    </td>
+                                                    <td class="inner-box" style="width: 30%; font-weight: bold;">&nbsp;CGST
+                                                        @ 2.5%
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+
+                                                    <td class="inner-box align-middle">&nbsp; <input type="text"
+                                                                                                     name="sgst"
+                                                                                                     class="align-middle"
+                                                                                                     pattern="[0-9]+\.[0-9]+"
+                                                                                                     style="border: 0; overflow: hidden;"
+                                                                                                     value="0.00">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="inner-box" style="font-weight: bold;">&nbsp;IGST @ 5%
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="inner-box" style="font-weight: bold;">&nbsp;TOTAL</td>
+                                                    <td class="inner-box align-middle">&nbsp; <input type="text"
+                                                                                                     name="total"
+                                                                                                     class="align-right"
+                                                                                                     pattern="[0-9]+\.[0-9]+"
+                                                                                                     style="border: 0; overflow: hidden;"
+                                                                                                     value="{{ bill.totalprice}}">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align: right;">
+                                            <span style="font-weight: bold;">FOR COMPANY <br><br><br><br> Signature</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <!-- FINAL TEXT -->
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+
+                        <br><br>
+
+                        <div class="wrapper">
+                            <button class="center btn btn-primary" onclick="printpage('printArea')">Print</button>
+                            <button class="center btn btn-success" type="submit">Save Draft</button>
+                            <a href="{{url_for('jokamu.view_purchases')}}" class=" btn center btn-secondary">Go
+                                Back</a>
+                        </div><!-- Log on to codeastro.com for more projects -->
+
+                    </form>
+
+                    <script>
+                        function printpage(divName) {
+                            var printContents = document.getElementById(divName).innerHTML;
+                            var originalContents = document.body.innerHTML;
+                            document.body.innerHTML = printContents;
+                            window.print();
+                            document.body.innerHTML = originalContents;
+                        }
+                    </script>
+
+                </div>
+
+            </div>
+        </div>
+        <br>
+
+    </div>
+
+</main>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{ url_for('static', filename='/bootstrap/jquery-3.3.1.slim.min.js') }}"></script>
+<script src="{{ url_for('static', filename='/bootstrap/popper.min.js') }}"></script>
+<script src="{{ url_for('static', filename='/bootstrap/bootstrap.min.js') }}"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{% for stock in  queryset %}
+<tr>
+    <td>
+        <p style="text-transform: capitalize; color:black">{{ stock.name }} </p>
+    </td>
+    <td class="align-middle">{{ stock.quantity }}</td>
+</tr>
+{% endfor %}
+
+
+
+
+
